@@ -60,14 +60,14 @@ for i in range(num_episodes):
         a = np.argmax(Q[s, :] + np.random.randn(1, env.action_space.n) * (1. / (i + 1)))
 
         ## 与环境互动，把动作放到env.step()函数，并返回下一状态S1，奖励，done，info
-        s1, r, d, _ = env.step(a)
+        s1, r, done, _ = env.step(a)
 
         ## 更新Q表格
         Q[s, a] = Q[s, a] + lr * (r + lambd * np.max(Q[s1, :]) - Q[s, a])
   
         rAll += r               # rAll累加当前的收获。
         s = s1                  # 把下一状态赋值给s，准备开始下一步。
-        if d ==True:            # 如果已经到达最终状态，就跳出for循环。(开始下一次迭代)
+        if done:            # 如果已经到达最终状态，就跳出for循环。(开始下一次迭代)
             break
 
 ##=================更新结束，打印结果=====================##
